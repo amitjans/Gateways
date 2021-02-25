@@ -3,6 +3,7 @@ gateways.controller('gateway', ['$scope', '$http', function ($scope, $http) {
     $scope.accion = 'Add';
     $scope.icon = true;
     $scope.updateid;
+    $scope._gateway = {};
 
     $scope.list = function () {
       $http.get('/api/gateway').then(function successCallback(response) {
@@ -14,9 +15,7 @@ gateways.controller('gateway', ['$scope', '$http', function ($scope, $http) {
 
     $scope.create = function () {
       $http.post('/api/gateway', { serial_number: $scope.serial_number, name: $scope.name, ipv4: $scope.ipv4 }).then(function successCallback(response) {
-        $scope.serial_number = '';
-        $scope.name = '';
-        $scope.ipv4 = '';
+        $scope.clear();
         $scope.list();
       }, function errorCallback(response) {
       });
@@ -33,15 +32,15 @@ gateways.controller('gateway', ['$scope', '$http', function ($scope, $http) {
 
     $scope.updatesend = function () {
       $http.put('/api/gateway/' + $scope.updateid, { serial_number: $scope.serial_number, name: $scope.name, ipv4: $scope.ipv4 }).then(function successCallback(response) {
-        $scope.updateid = '';
-        $scope.accion = 'Add';
-        $scope.icon = true;
-        $scope.serial_number = '';
-        $scope.name = '';
-        $scope.ipv4 = '';
+        $scope.clear();
         $scope.list();
       }, function errorCallback(response) {
       });
+    }
+
+    $scope.details = function (item) {
+      $scope._gateway = item;
+      $('#gatewayModal').modal('show');
     }
 
     $scope.delete = function (id) {
@@ -53,6 +52,15 @@ gateways.controller('gateway', ['$scope', '$http', function ($scope, $http) {
         notify(response.data.mensaje);
       });;
     }
+
+    $scope.clear = function () {
+      $scope.updateid = '';
+      $scope.accion = 'Add';
+      $scope.icon = true;
+      $scope.serial_number = '';
+      $scope.name = '';
+      $scope.ipv4 = '';
+  }
 
     $scope.list();
   }]);

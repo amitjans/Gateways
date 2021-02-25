@@ -12,7 +12,7 @@
                                 <th>Serial number</th>
                                 <th>Name</th>
                                 <th>IPv4</th>
-                                <th colspan="2">Opciones</th>
+                                <th colspan="3">Opciones</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -20,8 +20,12 @@
                                 <td>{{ l.serial_number }}</td>
                                 <td>{{ l.name }}</td>
                                 <td>{{ l.ipv4 }}</td>
-                                <td><span class="btn btn-default" ng-click="update(l)"><i class="fa fa-edit"></i></span></td>
-                                <td><span class="btn btn-default" ng-click="delete(l._id)"><i class="fa fa-trash"></i></span></td>
+                                <td><span class="btn btn-default" ng-click="details(l)"><i
+                                            class="fa fa-search"></i></span></td>
+                                <td><span class="btn btn-default" ng-click="update(l)"><i class="fa fa-edit"></i></span>
+                                </td>
+                                <td><span class="btn btn-default" ng-click="delete(l._id)"><i
+                                            class="fa fa-trash"></i></span></td>
                             </tr>
                         </tbody>
                     </table>
@@ -37,24 +41,87 @@
                     <div class="card-body card-padding">
                         <div class="form-group">
                             <label class="col-sm-12 control-label">Serial Number</label>
-                            <input type="text" class="form-control col-sm-12 input-sm" ng-model="serial_number" placeholder="Serial Number">
+                            <input type="text" class="form-control col-sm-12 input-sm" ng-model="serial_number"
+                                placeholder="Serial Number">
                         </div>
                         <div class="form-group">
                             <label class="col-sm-4 control-label">Name</label>
-                            <input type="text" class="form-control col-sm-12 input-sm" ng-model="name" placeholder="Name">
+                            <input type="text" class="form-control col-sm-12 input-sm" ng-model="name"
+                                placeholder="Name">
                         </div>
                         <div class="form-group">
                             <label class="col-sm-4 control-label">Ipv4</label>
-                            <input type="text" class="form-control col-sm-12 input-sm" ng-model="ipv4" placeholder="192.168.0.1">
+                            <input type="text" class="form-control col-sm-12 input-sm" ng-model="ipv4"
+                                placeholder="192.168.0.1">
                         </div>
 
                         <div class="form-group">
                             <div class="col-sm-offset-2 col-sm-10">
-                                <button type="button" ng-show="icon" class="btn btn-primary btn-sm" ng-click="create()">Save</button>
-                                <button type="button" ng-show="!icon" class="btn btn-primary btn-sm" ng-click="updatesend()">Update</button>
+                                <button type="button" ng-show="icon" class="btn btn-primary btn-sm"
+                                    ng-click="create()">Save</button>
+                                <button type="button" ng-show="!icon" class="btn btn-primary btn-sm"
+                                    ng-click="updatesend()">Update</button>
+                                <button type="button" class="btn btn-primary btn-sm" ng-click="clear()">Clear</button>
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="gatewayModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">{{ _gateway.name }}</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="col-sm-12 control-label">Serial Number</label>
+                                <p class="form-control">{{ _gateway.serial_number }}</p>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label">Name</label>
+                                <p class="form-control">{{ _gateway.name }}</p>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label">Ipv4</label>
+                                <p class="form-control">{{ _gateway.ipv4 }}</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card-body table-responsive">
+                                <table class="table" id="data-table-basic">
+                                    <thead>
+                                        <tr>
+                                            <th>UID</th>
+                                            <th>Vendor</th>
+                                            <th>Created</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="l in _gateway.peripherals">
+                                            <td>{{ l.uid }}</td>
+                                            <td>{{ l.vendor }}</td>
+                                            <td>{{ l.created }}</td>
+                                            <td>{{ (l.status ? 'Online' : 'Offline') }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>

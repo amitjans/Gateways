@@ -20,31 +20,27 @@ gateways.controller('peripheral', ['$scope', '$http', function ($scope, $http) {
 
     $scope.create = function () {
         $http.post('/api/peripheral', { uid: $scope.uid, vendor: $scope.vendor, status: document.querySelector('#status').checked, gateway: $scope.gateway }).then(function successCallback(response) {
-            $scope.serial_number = '';
-            $scope.name = '';
-            $scope.ipv4 = '';
+            $scope.clear();
+            notify(response.data.success);
             $scope.list();
         }, function errorCallback(response) {
+            notify(response.data.error, (response.status == 500 ? 'danger' : 'warning'));
         });
     }
 
     $scope.update = function (l) {
-        $scope.serial_number = l.serial_number;
-        $scope.name = l.name;
-        $scope.ipv4 = l.ipv4;
+        $scope.uid = l.uid;
+        $scope.vendor = l.vendor;
+        document.querySelector('#status').checked = l.status;
+        $scope.gateway = l.gateway._id;
         $scope.updateid = l._id;
         $scope.icon = false;
         $scope.accion = 'Edit';
     }
 
     $scope.updatesend = function () {
-        $http.put('/api/peripheral/' + $scope.updateid, { serial_number: $scope.serial_number, name: $scope.name, ipv4: $scope.ipv4 }).then(function successCallback(response) {
-            $scope.updateid = '';
-            $scope.accion = 'Add';
-            $scope.icon = true;
-            $scope.serial_number = '';
-            $scope.name = '';
-            $scope.ipv4 = '';
+        $http.put('/api/peripheral/' + $scope.updateid, { uid: $scope.uid, vendor: $scope.vendor, status: document.querySelector('#status').checked, gateway: $scope.gateway }).then(function successCallback(response) {
+            $scope.clear();
             $scope.list();
         }, function errorCallback(response) {
         });
@@ -58,6 +54,16 @@ gateways.controller('peripheral', ['$scope', '$http', function ($scope, $http) {
         }, function errorCallback(response) {
             notify(response.data.mensaje);
         });;
+    }
+
+    $scope.clear = function () {
+        $scope.updateid = '';
+        $scope.accion = 'Add';
+        $scope.icon = true;
+        $scope.uid = '';
+        $scope.vendor = '';
+        document.querySelector('#status').checked = false;
+        $scope.gateway = '';
     }
 
     $scope.list();

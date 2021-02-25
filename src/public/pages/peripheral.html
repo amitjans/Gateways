@@ -48,8 +48,8 @@
                             <input type="text" class="form-control col-sm-12 input-sm" ng-model="vendor" placeholder="Vendor">
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-4 control-label">Status:Online?</label>
-                            <input type="checkbox" class="form-control col-sm-12 input-sm" ng-model="status" id="status" placeholder="">
+                            <label class="col-sm-12 control-label">Status: Online?</label>
+                            <input type="checkbox" class="form-control col-sm-1 input-sm" ng-model="status" id="status" placeholder="">
                         </div>
 
                         <div class="form-group">
@@ -63,6 +63,7 @@
                             <div class="col-sm-offset-2 col-sm-10">
                                 <button type="button" ng-show="icon" class="btn btn-primary btn-sm" ng-click="create()">Save</button>
                                 <button type="button" ng-show="!icon" class="btn btn-primary btn-sm" ng-click="updatesend()">Update</button>
+                                <button type="button" class="btn btn-primary btn-sm" ng-click="clear()">Clear</button>
                             </div>
                         </div>
                     </div>
