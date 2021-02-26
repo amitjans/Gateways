@@ -55,6 +55,7 @@
                         <div class="form-group">
                             <label class="col-sm-4 control-label">Gateway</label>
                             <select name="gateway" id="gateway" class="form-control col-sm-12" ng-model="gateway">
+                                <option value=""></option>
                                 <option value="{{ item._id }}" ng-repeat="item in gatewaylist">{{ item.name }}</option>
                             </select>
                         </div>
