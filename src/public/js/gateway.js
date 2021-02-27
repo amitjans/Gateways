@@ -66,5 +66,20 @@ gateways.controller('gateway', ['$scope', '$http', function ($scope, $http) {
     $scope.ipv4 = '';
   }
 
+  $scope.unlink = function (obj) {
+    delete obj.gateway
+    $http.put('/api/peripheral/' + obj._id, obj).then(function successCallback(response) {
+      $scope.clear();
+      $scope.list();
+      $http.get('/api/gateway/' + $scope._gateway._id).then(function successCallback(response) {
+        $scope._gateway = response.data;
+      }, function errorCallback(response) {
+        notify(response.data.message, (response.status == 500 ? 'danger' : 'warning'));
+      });
+    }, function errorCallback(response) {
+      notify(response.data.message, (response.status == 500 ? 'danger' : 'warning'));
+    });
+  }
+
   $scope.list();
 }]);

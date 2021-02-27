@@ -21,7 +21,7 @@
                             <tr ng-repeat="l in peripherallist">
                                 <td>{{ l.uid }}</td>
                                 <td>{{ l.vendor }}</td>
-                                <td>{{ l.created }}</td>
+                                <td>{{ l.created | date:'yyyy-MM-dd' }}</td>
                                 <td>{{ l.gateway.name }}</td>
                                 <td>{{ (l.status ? 'Online' : 'Offline') }}</td>
                                 <td><span class="btn btn-default" ng-click="update(l)"><i class="fa fa-edit"></i></span></td>

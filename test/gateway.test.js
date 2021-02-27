@@ -18,7 +18,7 @@ describe('GET/api/gateway', () => {
 describe('GET/api/gateway/:id', () => {
     it('respond with json containing a single gateway', done => {
         request(app)
-            .get('/api/gateway/6035fa5a788be24d28215be4')
+            .get('/api/gateway/6035fa8e788be24d28215be5')
             .set('Accept', 'application/json')
             .expect('Content-Type', /json/)
             .expect(200)

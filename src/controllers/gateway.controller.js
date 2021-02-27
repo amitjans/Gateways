@@ -78,13 +78,15 @@ gatewaycontroller.delete = async (req, res) => {
 }
 
 async function RemoveFromPeripherals(id) {
-	console.log(id);
-	let obj = await Gateway.findById(id).populate('peripheral');
-	console.log(obj);
+	let obj = await Gateway.findById(id).populate('peripherals');
 	for (let i = 0; i < obj.peripherals.length; i++) {
-		let temp = obj.peripherals[i];
+		let temp = obj.peripherals[i].toObject({ getters: true });
+		console.log(temp);
 		delete temp.gateway;
-		await Peripheral.findByIdAndUpdate(obj.peripherals[i]._id, temp);
+		delete temp._id;
+		console.log(temp);
+		await Peripheral.findByIdAndUpdate(obj.peripherals[i]._id, { $set: temp, $unset: { gateway: null }});
+
 	}
 }
 

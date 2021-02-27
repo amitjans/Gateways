@@ -102,14 +102,16 @@
                                             <th>Vendor</th>
                                             <th>Created</th>
                                             <th>Status</th>
+                                            <th>Options</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr ng-repeat="l in _gateway.peripherals">
                                             <td>{{ l.uid }}</td>
                                             <td>{{ l.vendor }}</td>
-                                            <td>{{ l.created }}</td>
+                                            <td>{{ l.created | date:'yyyy-MM-dd' }}</td>
                                             <td>{{ (l.status ? 'Online' : 'Offline') }}</td>
+                                            <td><span class="btn btn-default" ng-click="unlink(l)"><i class="fa fa-unlink"></i></span></td>
                                         </tr>
                                     </tbody>
                                 </table>

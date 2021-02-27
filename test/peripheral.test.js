@@ -18,7 +18,7 @@ describe('GET/api/peripheral', () => {
 describe('GET/api/peripheral/:id', () => {
     it('respond with json containing a single peripheral', done => {
         request(app)
-            .get('/api/peripheral/60360bd1de5c8d481c6d2829')
+            .get('/api/peripheral/6037316efd7e865f34a89ba7')
             .set('Accept', 'application/json')
             .expect('Content-Type', /json/)
             .expect(200)
@@ -85,7 +85,7 @@ describe('POST/api/peripheral', () => {
 describe('UPDATE/api/peripheral/:id', () => {
     it('respond with status 200 updated', done => {
         request(app)
-            .put('/api/peripheral/6035fa8e788be24d28215be5')
+            .put('/api/peripheral/603731b6fd7e865f34a89bad')
             .send({ uid: 123, vendor: 'DEELL', status: true, gateway: '6035fa5a788be24d28215be4' })
             .set('Accept', 'application/json')
             .expect('Content-Type', /json/)
